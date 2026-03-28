@@ -110,6 +110,36 @@ export const ClusteredLocations: React.FC<Props> = ({ locations }) => {
         }}
       >
         <Layer
+          id="location-clusters-glow"
+          type="circle"
+          filter={["has", "point_count"]}
+          paint={{
+            "circle-color": [
+              "case",
+              ["get", "allResolved"],
+              RESOLVED_COLOR,
+              ["get", "hasCritical"],
+              EMERGENCY_COLORS.critical,
+              ["get", "hasHigh"],
+              EMERGENCY_COLORS.high,
+              EMERGENCY_COLORS.medium,
+            ],
+            "circle-opacity": 0.18,
+            "circle-blur": 0.45,
+            "circle-radius": [
+              "step",
+              ["get", "point_count"],
+              24,
+              5,
+              30,
+              15,
+              38,
+              50,
+              46,
+            ],
+          }}
+        />
+        <Layer
           id="location-clusters"
           type="circle"
           filter={["has", "point_count"]}
@@ -157,6 +187,28 @@ export const ClusteredLocations: React.FC<Props> = ({ locations }) => {
         />
 
         <Layer
+          id="location-unclustered-glow"
+          type="circle"
+          filter={["!", ["has", "point_count"]]}
+          paint={{
+            "circle-color": [
+              "case",
+              ["==", ["get", "isResolved"], true],
+              RESOLVED_COLOR,
+              [
+                "match",
+                ["get", "emergencyLevel"],
+                "critical", EMERGENCY_COLORS.critical,
+                "high", EMERGENCY_COLORS.high,
+                EMERGENCY_COLORS.medium,
+              ],
+            ],
+            "circle-radius": 16,
+            "circle-opacity": 0.22,
+            "circle-blur": 0.55,
+          }}
+        />
+        <Layer
           id="location-unclustered"
           type="circle"
           filter={["!", ["has", "point_count"]]}
@@ -173,8 +225,8 @@ export const ClusteredLocations: React.FC<Props> = ({ locations }) => {
                 EMERGENCY_COLORS.medium,
               ],
             ],
-            "circle-radius": 8,
-            "circle-stroke-width": 3,
+            "circle-radius": 9,
+            "circle-stroke-width": 3.5,
             "circle-stroke-color": "#ffffff",
           }}
         />

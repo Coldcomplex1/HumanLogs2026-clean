@@ -1,7 +1,7 @@
 import type * as React from "react";
 import { PropsWithChildren, useEffect } from "react";
-import { useAppContext } from "../app.context";
-import { Source, Layer } from "react-map-gl/maplibre";
+import { useAppContext, type Marker as MarkerType } from "../app.context";
+import { Source, Layer, Marker as MapMarker } from "react-map-gl/maplibre";
 import { useToolbarContext } from "./toolbar/toolbar.context";
 import { useMapContext } from "./map.context";
 
@@ -43,11 +43,12 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
 
   return (
     <>
-      {areaMarkers.map(
-        marker =>
-          (
+      {areaMarkers.map(marker => {
+        const center = getMarkerCenter(marker);
+
+        return (
+          <React.Fragment key={marker.id}>
             <Source
-              key={marker.id}
               id={`shape-${marker.id}`}
               type="geojson"
               data={{
@@ -97,8 +98,24 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
                 }}
               />
             </Source>
-          ),
-      )}
+            {center && (
+              <MapMarker longitude={center.lng} latitude={center.lat} anchor="center">
+                <div className="pointer-events-none rounded-full border border-white/70 bg-white/88 px-3 py-1.5 shadow-[0_16px_30px_rgba(15,58,95,0.16)] backdrop-blur">
+                  <div
+                    className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: marker.color || "#2563eb" }}
+                  >
+                    {getAreaLabel(marker)}
+                  </div>
+                  <div className="max-w-44 truncate text-[11px] font-semibold text-slate-800">
+                    {marker.name}
+                  </div>
+                </div>
+              </MapMarker>
+            )}
+          </React.Fragment>
+        );
+      })}
       {routeMarkers.map(marker => (
         <Source
           key={marker.id}
@@ -145,4 +162,30 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
       ))}
     </>
   );
+};
+
+const getMarkerCenter = (marker: MarkerType) => {
+  const points = marker.paths;
+  if (!points || points.length === 0) {
+    return { lat: marker.lat, lng: marker.lng };
+  }
+
+  const total = points.reduce(
+    (acc, [lat, lng]) => ({
+      lat: acc.lat + lat,
+      lng: acc.lng + lng,
+    }),
+    { lat: 0, lng: 0 },
+  );
+
+  return {
+    lat: total.lat / points.length,
+    lng: total.lng / points.length,
+  };
+};
+
+const getAreaLabel = (marker: MarkerType) => {
+  if (marker.markType === "dangerous") return "Vùng nguy hiểm";
+  if (marker.markType === "flood_area") return "Vùng ngập";
+  return "Khu vực cảnh báo";
 };

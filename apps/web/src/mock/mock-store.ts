@@ -237,7 +237,7 @@ type MockStore = {
   conversations: ConversationRecord[];
 };
 
-const STORAGE_KEY = "humanlogs2026:mock-store:v4";
+const STORAGE_KEY = "humanlogs2026:mock-store:v5";
 
 let storeCache: MockStore | null = null;
 
@@ -1273,6 +1273,98 @@ const markerSeeds = [
       [13.8031, 109.2246],
     ] as Array<[number, number]>,
     note: "Tuyến ưu tiên để bàn giao bệnh nhân sang xe cứu thương.",
+  },
+  {
+    id: "mrk-019",
+    name: "Vùng nước dâng Hải Lăng - Huế",
+    type: "area" as MarkerType,
+    markType: "flood_area" as MarkerMarkType,
+    lat: 16.6021,
+    lng: 107.5012,
+    color: "#f59e0b",
+    fillOpacity: 0.16,
+    isClosedPath: true,
+    paths: [
+      [16.6648, 107.3281],
+      [16.5751, 107.7642],
+      [16.4542, 107.5461],
+      [16.5344, 107.2785],
+    ] as Array<[number, number]>,
+    note: "Vành đai ưu tiên giám sát do nước dâng và triều cường đồng thời.",
+  },
+  {
+    id: "mrk-020",
+    name: "Vùng ngập Hòa Vang",
+    type: "area" as MarkerType,
+    markType: "flood_area" as MarkerMarkType,
+    lat: 16.0631,
+    lng: 108.0931,
+    color: "#ef4444",
+    fillOpacity: 0.14,
+    isClosedPath: true,
+    paths: [
+      [16.1512, 107.9965],
+      [16.0963, 108.1768],
+      [15.9597, 108.1481],
+      [15.9902, 108.0104],
+    ] as Array<[number, number]>,
+    note: "Khu vực nhiều điểm dân cư thấp trũng, cần theo dõi sơ tán theo giờ.",
+  },
+  {
+    id: "mrk-021",
+    name: "Vành đai cảnh báo Cẩm Kim",
+    type: "area" as MarkerType,
+    markType: "dangerous" as MarkerMarkType,
+    lat: 15.8898,
+    lng: 108.3132,
+    color: "#fb7185",
+    fillOpacity: 0.12,
+    isClosedPath: true,
+    paths: [
+      [15.9251, 108.2748],
+      [15.9287, 108.3392],
+      [15.8638, 108.3541],
+      [15.8532, 108.2927],
+    ] as Array<[number, number]>,
+    note: "Dòng xoáy sát bờ sông, không neo đậu lâu quanh mép nước.",
+  },
+  {
+    id: "mrk-022",
+    name: "Hành lang cứu trợ Hải Lăng - Huế",
+    type: "route" as MarkerType,
+    markType: "safe_pickup" as MarkerMarkType,
+    lat: 16.5888,
+    lng: 107.4796,
+    color: "#f59e0b",
+    fillOpacity: 0.82,
+    isClosedPath: false,
+    paths: [
+      [16.6641, 107.3105],
+      [16.6217, 107.3924],
+      [16.5788, 107.4921],
+      [16.5314, 107.6033],
+      [16.4862, 107.6987],
+    ] as Array<[number, number]>,
+    note: "Tuyến bàn giao hàng xuồng máy dọc vùng giáp phá Tam Giang.",
+  },
+  {
+    id: "mrk-023",
+    name: "Tuyến tiếp vận Đà Nẵng - Hội An",
+    type: "route" as MarkerType,
+    markType: "safe_pickup" as MarkerMarkType,
+    lat: 15.9897,
+    lng: 108.1992,
+    color: "#10b981",
+    fillOpacity: 0.86,
+    isClosedPath: false,
+    paths: [
+      [16.0865, 108.1188],
+      [16.0473, 108.1672],
+      [15.9986, 108.2179],
+      [15.9442, 108.2651],
+      [15.8934, 108.3158],
+    ] as Array<[number, number]>,
+    note: "Hành lang tiếp vận hỗn hợp giữa xe tải, xe máy và xuồng nhẹ.",
   },
 ] as const;
 
