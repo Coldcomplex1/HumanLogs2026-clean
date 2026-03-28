@@ -52,7 +52,7 @@ export function ImageUpload({
       })
       .catch(err => {
         if (!cancelled)
-          setUploadError(err instanceof Error ? err.message : "Upload failed");
+          setUploadError(err instanceof Error ? err.message : "Tải ảnh thất bại");
       })
       .finally(() => {
         if (!cancelled) setUploading(false);

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { env } from "../env";
 import { createQueryClient } from "./query-client";
 import type { AppRouter } from "@repo/api/root";
+import { createMockApi, MockQueryProvider } from "@/mock/mock-api";
 export type { RouterInputs, RouterOutputs } from "@repo/api/root";
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
@@ -18,13 +19,15 @@ const getQueryClient = () => {
   return (clientQueryClientSingleton ??= createQueryClient());
 };
 
-export const api = createTRPCReact<AppRouter>();
+const trpcApi = createTRPCReact<AppRouter>();
+const mockApi = createMockApi();
+
+export const api = (env.VITE_USE_MOCK_DATA ? mockApi : trpcApi) as typeof trpcApi;
 
 export function TRPCReactProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
-
   const [trpcClient] = useState(() =>
-    api.createClient({
+    trpcApi.createClient({
       links: [
         loggerLink({
           enabled: op =>
@@ -45,11 +48,19 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
     }),
   );
 
+  if (env.VITE_USE_MOCK_DATA) {
+    return (
+      <MockQueryProvider queryClient={queryClient}>
+        {props.children}
+      </MockQueryProvider>
+    );
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
-      <api.Provider client={trpcClient} queryClient={queryClient}>
+      <trpcApi.Provider client={trpcClient} queryClient={queryClient}>
         {props.children}
-      </api.Provider>
+      </trpcApi.Provider>
     </QueryClientProvider>
   );
 }

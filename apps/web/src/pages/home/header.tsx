@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { parseAsString, useQueryState } from "nuqs";
 import { provinceOptions } from "./data";
 import { useMapContext } from "./map/map.context";
+import { env } from "@/env";
 import {
   Select,
   SelectContent,
@@ -93,6 +94,14 @@ const openInNewTab = (path: string) => {
 
 const ConnectionStatus: React.FC = () => {
   const { loading, isConnected } = useSocket();
+
+  if (env.VITE_USE_MOCK_DATA)
+    return (
+      <div className="ml-4 text-cyan-700 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs flex gap-1 items-center">
+        <div className="size-2 rounded-full bg-cyan-500"></div>
+        Đang dùng dữ liệu demo nội bộ
+      </div>
+    );
 
   if (loading)
     return (

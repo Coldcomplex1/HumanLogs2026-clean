@@ -203,7 +203,9 @@ export const ChatPage: React.FC = () => {
                   Phiên nhắn tin với số: {submittedPhoneNumber}
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">
-                  {AGENT_ID
+                  {env.VITE_USE_MOCK_DATA
+                    ? "Dashboard đang dùng dữ liệu demo nội bộ. Phiên chat ElevenLabs vẫn hoạt động nếu đã cấu hình agent."
+                    : AGENT_ID
                     ? "Biến gửi kèm: phone_number"
                     : "Chưa cấu hình mã trợ lý AI, đang ở chế độ demo giao diện."}
                 </div>

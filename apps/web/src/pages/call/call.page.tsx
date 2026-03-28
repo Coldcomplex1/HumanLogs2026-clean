@@ -128,6 +128,10 @@ export const CallPage: React.FC = () => {
             <div className="mt-8 rounded-2xl border border-white/10 bg-slate-950/20 p-4">
               {errorMessage ? (
                 <p className="text-sm text-amber-200">{errorMessage}</p>
+              ) : env.VITE_USE_MOCK_DATA ? (
+                <p className="text-sm text-cyan-50/80">
+                  Dashboard đang chạy bằng dữ liệu demo. Phiên gọi ElevenLabs vẫn test được, nhưng case thật từ Twilio sẽ không tự đổ vào giao diện này nếu chưa có backend webhook.
+                </p>
               ) : AGENT_ID ? (
                 <p className="text-sm text-cyan-50/80">
                   Biến gửi kèm: <span className="font-semibold">phone_number</span>

@@ -29,14 +29,21 @@ export const useSocket = () => useContext(SocketContext);
 
 export const SocketProvider: React.FC<PropsWithChildren<{}>> = props => {
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(!env.VITE_USE_MOCK_DATA);
+  const [isConnected, setIsConnected] = useState<boolean>(!!env.VITE_USE_MOCK_DATA);
 
   // Replace with env or config as needed
   const SOCKET_URL = env.VITE_SOCKET_URL;
 
   // Socket connect & lifecycle
   useEffect(() => {
+    if (env.VITE_USE_MOCK_DATA) {
+      setLoading(false);
+      setIsConnected(true);
+      setSocket(null);
+      return;
+    }
+
     setLoading(true);
     const socketInstance = io(SOCKET_URL, {
       withCredentials: true,
@@ -76,6 +83,7 @@ export const SocketProvider: React.FC<PropsWithChildren<{}>> = props => {
 
   // A simple refetch just reconnects the socket
   const refetch = useCallback(async () => {
+    if (env.VITE_USE_MOCK_DATA) return;
     if (socket) {
       socket.connect();
     }
@@ -83,6 +91,11 @@ export const SocketProvider: React.FC<PropsWithChildren<{}>> = props => {
 
   // Logout could disconnect socket/additional cleaning
   const logout = useCallback(async () => {
+    if (env.VITE_USE_MOCK_DATA) {
+      setLoading(false);
+      setIsConnected(true);
+      return;
+    }
     if (socket) {
       socket.disconnect();
       setSocket(null);

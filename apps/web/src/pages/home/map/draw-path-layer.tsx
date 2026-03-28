@@ -49,14 +49,14 @@ export function DrawPathLayer() {
   const createMakerMutation = api.marker.create.useMutation({
     onSuccess: created => {
       toastManager.add({
-        title: "Shape created successfully",
+        title: "Đã tạo vùng vẽ",
         type: "success",
       });
       setSelectedMarker(created);
     },
     onError: error => {
       toastManager.add({
-        title: "Failed to create shape",
+        title: "Tạo vùng vẽ thất bại",
         description: error.message,
         type: "error",
       });

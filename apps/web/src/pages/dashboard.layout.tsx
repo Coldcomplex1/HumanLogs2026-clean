@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { env } from "@/env";
 import { paths } from "@/paths";
 import {
   Ambulance,
@@ -90,7 +91,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
 const DefaultHeader = () => {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 w-full">
       <div className="size-10 rounded-2xl bg-[linear-gradient(135deg,#0f3a5f_0%,#0ea5e9_100%)] shadow-[0_10px_24px_rgba(14,165,233,0.28)] flex items-center justify-center">
         <img src="/icon-white.svg" alt="HumanLogs2026" className="size-6" />
       </div>
@@ -102,6 +103,11 @@ const DefaultHeader = () => {
           HumanLogs2026
         </div>
       </div>
+      {env.VITE_USE_MOCK_DATA && (
+        <div className="ml-auto rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-medium text-cyan-700">
+          Dữ liệu demo nội bộ
+        </div>
+      )}
     </div>
   );
 };

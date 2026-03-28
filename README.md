@@ -30,6 +30,32 @@ HumanLogs2026/
 
 ## Chạy local
 
+### Chạy nhanh chỉ với frontend demo
+
+Nếu bạn chưa muốn dựng backend, có thể chạy frontend độc lập bằng mock data:
+
+```bash
+cp apps/web/.env.example apps/web/.env
+```
+
+Đảm bảo `apps/web/.env` có:
+
+```env
+VITE_USE_MOCK_DATA=true
+VITE_API_URL=https://example.com
+VITE_SOCKET_URL=https://example.com
+VITE_AGENT_ID=
+```
+
+Sau đó chỉ cần:
+
+```bash
+bun install
+bun run dev:web
+```
+
+Frontend sẽ dùng dữ liệu demo lưu trong `localStorage`, không cần API, không cần PostgreSQL. Các trang `/call` và `/chat` vẫn có thể kết nối ElevenLabs nếu bạn điền `VITE_AGENT_ID`.
+
 ### 1. Chuẩn bị môi trường
 
 - Cài Bun 1.3+
@@ -109,6 +135,7 @@ Seed mặc định tạo:
 - `/call`: thử voice agent qua `@elevenlabs/react`
 - `/chat`: thử nhắn tin với trợ lý AI
 - Nếu thiếu `VITE_AGENT_ID` hoặc `ELEVENLABS_AGENT_ID`, UI vẫn mở nhưng sẽ hiện trạng thái “chưa cấu hình”
+- Nếu `VITE_USE_MOCK_DATA=true`, dashboard vẫn chạy hoàn chỉnh bằng dữ liệu demo mà không cần backend
 
 ### Webhook sau cuộc gọi
 
@@ -153,7 +180,12 @@ Nếu chưa có khóa Twilio, toàn bộ dashboard và browser test vẫn chạy
 ### Web
 
 - Vercel hoặc Netlify đều phù hợp
-- Cần set `VITE_API_URL`, `VITE_SOCKET_URL`, `VITE_AGENT_ID` nếu dùng ElevenLabs browser SDK
+- Nếu chỉ deploy frontend demo:
+  - `VITE_USE_MOCK_DATA=true`
+  - `VITE_API_URL=https://example.com`
+  - `VITE_SOCKET_URL=https://example.com`
+  - `VITE_AGENT_ID=` hoặc agent thật của ElevenLabs
+- Nếu dùng backend thật, chuyển `VITE_USE_MOCK_DATA=false` và điền API URL/socket URL thực tế
 
 ### API
 
