@@ -40,8 +40,12 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       </header>
       <div className="flex h-[calc(100vh-var(--height-header))]">
         <nav className="w-sidebar shrink-0 border-r border-white/10 bg-[linear-gradient(180deg,#0d2236_0%,#123e66_100%)] text-sidebar-foreground flex flex-col items-center py-4 gap-4 shadow-[18px_0_40px_rgba(11,34,54,0.18)]">
-          <div className="size-12 rounded-2xl bg-white/8 backdrop-blur flex items-center justify-center border border-white/10">
-            <img src="/icon-white.svg" alt="HumanLogs2026" className="size-7" />
+          <div className="size-12 overflow-hidden rounded-2xl bg-white/8 backdrop-blur border border-white/10 shadow-[0_10px_24px_rgba(7,23,40,0.18)]">
+            <img
+              src="/hackthon-logo-256.png"
+              alt="Hackthon Humanitarian Logistics"
+              className="size-full object-cover object-center"
+            />
           </div>
           <div className="flex flex-col gap-2 mt-2">
             {navItems.map((item) => {
@@ -92,8 +96,12 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 const DefaultHeader = () => {
   return (
     <div className="flex items-center gap-3 w-full">
-      <div className="size-10 rounded-2xl bg-[linear-gradient(135deg,#0f3a5f_0%,#0ea5e9_100%)] shadow-[0_10px_24px_rgba(14,165,233,0.28)] flex items-center justify-center">
-        <img src="/icon-white.svg" alt="HumanLogs2026" className="size-6" />
+      <div className="size-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_10px_24px_rgba(14,30,60,0.18)]">
+        <img
+          src="/hackthon-logo-256.png"
+          alt="Hackthon Humanitarian Logistics"
+          className="size-full object-cover object-center"
+        />
       </div>
       <div>
         <div className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-700">
