@@ -68,9 +68,9 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
             }}
             paint={{
               "line-color": marker.color || "#3b82f6",
-              "line-width": 10,
-              "line-opacity": 0.16,
-              "line-blur": 2.5,
+              "line-width": 6,
+              "line-opacity": 0.08,
+              "line-blur": 1.2,
             }}
           />
           <Layer
@@ -78,15 +78,10 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
             type="fill"
             paint={{
               "fill-color": marker.color || "#3b82f6",
-              "fill-opacity": Math.max(marker.fillOpacity || 0, 0.22),
-            }}
-          />
-          <Layer
-            id={`shape-fill-soft-${marker.id}`}
-            type="fill"
-            paint={{
-              "fill-color": marker.color || "#3b82f6",
-              "fill-opacity": Math.max((marker.fillOpacity || 0) - 0.06, 0.1),
+              "fill-opacity": Math.min(
+                Math.max(marker.fillOpacity || 0, 0.12),
+                0.18,
+              ),
             }}
           />
           <Layer
@@ -98,8 +93,8 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
             }}
             paint={{
               "line-color": marker.color || "#3b82f6",
-              "line-width": 3.2,
-              "line-opacity": 0.95,
+              "line-width": 2.4,
+              "line-opacity": 0.78,
             }}
           />
         </Source>
@@ -127,9 +122,22 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
             }}
             paint={{
               "line-color": marker.color || "#38bdf8",
-              "line-width": 10,
-              "line-opacity": 0.18,
-              "line-blur": 2,
+              "line-width": 7,
+              "line-opacity": 0.16,
+              "line-blur": 1.2,
+            }}
+          />
+          <Layer
+            id={`route-casing-${marker.id}`}
+            type="line"
+            layout={{
+              "line-cap": "round",
+              "line-join": "round",
+            }}
+            paint={{
+              "line-color": "#ffffff",
+              "line-width": 5.5,
+              "line-opacity": 0.92,
             }}
           />
           <Layer
@@ -141,9 +149,8 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
             }}
             paint={{
               "line-color": marker.color || "#38bdf8",
-              "line-width": 4,
-              "line-opacity": 0.96,
-              "line-dasharray": [2, 1.25],
+              "line-width": 3,
+              "line-opacity": 0.95,
             }}
           />
         </Source>
