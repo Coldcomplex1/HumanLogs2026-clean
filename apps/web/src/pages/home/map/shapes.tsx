@@ -9,13 +9,16 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
   const { markers } = useAppContext();
   const { setSelectedMarker } = useToolbarContext();
   const { map } = useMapContext();
+  const areaMarkers = markers.filter(marker => marker.type === "area");
+  const routeMarkers = markers.filter(
+    marker => marker.type === "route" && (marker.paths?.length ?? 0) >= 2,
+  );
 
   useEffect(() => {
     if (!map) return;
     const m = map.getMap();
 
     const handleClick = (e: maplibregl.MapMouseEvent) => {
-      const areaMarkers = markers.filter(m => m.type === "area");
       const layerIds = areaMarkers
         .map(m => `shape-fill-${m.id}`)
         .filter(id => m.getLayer(id));
@@ -36,13 +39,13 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
     return () => {
       m.off("click", handleClick);
     };
-  }, [map, markers, setSelectedMarker]);
+  }, [areaMarkers, map, setSelectedMarker]);
 
   return (
     <>
-      {markers.map(
+      {areaMarkers.map(
         marker =>
-          marker.type === "area" && (
+          (
             <Source
               key={marker.id}
               id={`shape-${marker.id}`}
@@ -59,11 +62,30 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
               }}
             >
               <Layer
-                id={`shape-line-${marker.id}`}
+                id={`shape-glow-${marker.id}`}
                 type="line"
+                layout={{
+                  "line-cap": "round",
+                  "line-join": "round",
+                }}
                 paint={{
                   "line-color": marker.color || "#3b82f6",
-                  "line-width": 2,
+                  "line-width": 8,
+                  "line-opacity": 0.14,
+                  "line-blur": 2,
+                }}
+              />
+              <Layer
+                id={`shape-line-${marker.id}`}
+                type="line"
+                layout={{
+                  "line-cap": "round",
+                  "line-join": "round",
+                }}
+                paint={{
+                  "line-color": marker.color || "#3b82f6",
+                  "line-width": 2.6,
+                  "line-opacity": 0.9,
                 }}
               />
               <Layer
@@ -77,6 +99,50 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
             </Source>
           ),
       )}
+      {routeMarkers.map(marker => (
+        <Source
+          key={marker.id}
+          id={`route-${marker.id}`}
+          type="geojson"
+          data={{
+            type: "Feature",
+            geometry: {
+              type: "LineString",
+              coordinates: marker.paths?.map(p => [p[1], p[0]]) || [],
+            },
+            properties: { markerId: marker.id },
+          }}
+        >
+          <Layer
+            id={`route-glow-${marker.id}`}
+            type="line"
+            layout={{
+              "line-cap": "round",
+              "line-join": "round",
+            }}
+            paint={{
+              "line-color": marker.color || "#38bdf8",
+              "line-width": 10,
+              "line-opacity": 0.18,
+              "line-blur": 2,
+            }}
+          />
+          <Layer
+            id={`route-line-${marker.id}`}
+            type="line"
+            layout={{
+              "line-cap": "round",
+              "line-join": "round",
+            }}
+            paint={{
+              "line-color": marker.color || "#38bdf8",
+              "line-width": 4,
+              "line-opacity": 0.96,
+              "line-dasharray": [2, 1.25],
+            }}
+          />
+        </Source>
+      ))}
     </>
   );
 };

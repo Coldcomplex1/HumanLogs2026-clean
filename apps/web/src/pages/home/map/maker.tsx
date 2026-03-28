@@ -13,15 +13,23 @@ export const Maker: React.FC<PropsWithChildren<MakerProps>> = ({ marker }) => {
   const symbol =
     marker.type === "route"
       ? "→"
-      : marker.markType === "shelter"
-        ? "⛺"
-        : marker.markType === "medical_point"
-          ? "+"
-          : marker.markType === "safe_pickup"
-            ? "P"
-            : marker.markType === "supply_drop"
-              ? "H"
-              : "!";
+      : marker.markType === "blocked_road"
+        ? "⛔"
+        : marker.markType === "electric_hazard"
+          ? "⚡"
+          : marker.markType === "strong_current"
+            ? "≈"
+            : marker.markType === "shelter"
+              ? "⌂"
+              : marker.markType === "medical_point"
+                ? "✚"
+                : marker.markType === "safe_pickup"
+                  ? "⬤"
+                  : marker.markType === "supply_drop"
+                    ? "▣"
+                    : marker.markType === "debris"
+                      ? "◆"
+                      : "!";
 
   return (
     <Marker

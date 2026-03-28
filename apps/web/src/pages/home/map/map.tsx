@@ -15,7 +15,7 @@ import { ShapeDetail } from "./toolbar/shape-detail";
 import { ClusteredLocations } from "./clustered-locations";
 import { Maker } from "./maker";
 
-const HIDE_MARKERS_ZOOM = 12;
+const HIDE_MARKERS_ZOOM = 9;
 
 export const Map: React.FC<PropsWithChildren<{}>> = () => {
   const { locations, markers } = useAppContext();

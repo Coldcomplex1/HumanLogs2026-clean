@@ -112,8 +112,9 @@ const DefaultHeader = () => {
         </div>
       </div>
       {env.VITE_USE_MOCK_DATA && (
-        <div className="ml-auto rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-medium text-cyan-700">
-          Dữ liệu demo nội bộ
+        <div className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+          <div className="size-2 animate-pulse rounded-full bg-emerald-500"></div>
+          Đang kết nối trực tuyến
         </div>
       )}
     </div>

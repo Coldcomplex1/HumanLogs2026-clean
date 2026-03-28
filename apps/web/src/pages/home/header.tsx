@@ -97,9 +97,9 @@ const ConnectionStatus: React.FC = () => {
 
   if (env.VITE_USE_MOCK_DATA)
     return (
-      <div className="ml-4 text-cyan-700 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs flex gap-1 items-center">
-        <div className="size-2 rounded-full bg-cyan-500"></div>
-        Đang dùng dữ liệu demo nội bộ
+      <div className="ml-4 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs text-emerald-700 flex gap-1.5 items-center">
+        <div className="size-2 animate-pulse rounded-full bg-emerald-500"></div>
+        Đang kết nối trực tuyến
       </div>
     );
 
