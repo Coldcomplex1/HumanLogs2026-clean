@@ -1,5 +1,5 @@
 import type * as React from "react";
-import { PropsWithChildren, useEffect } from "react";
+import { Fragment, PropsWithChildren, useEffect } from "react";
 import { useAppContext, type Marker as MarkerType } from "../app.context";
 import { Source, Layer, Marker as MapMarker } from "react-map-gl/maplibre";
 import { useToolbarContext } from "./toolbar/toolbar.context";
@@ -47,7 +47,7 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
         const center = getMarkerCenter(marker);
 
         return (
-          <React.Fragment key={marker.id}>
+          <Fragment key={marker.id}>
             <Source
               id={`shape-${marker.id}`}
               type="geojson"
@@ -113,7 +113,7 @@ export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
                 </div>
               </MapMarker>
             )}
-          </React.Fragment>
+          </Fragment>
         );
       })}
       {routeMarkers.map(marker => (
