@@ -1,16 +1,117 @@
 import type * as React from "react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { useAppContext } from "../app.context";
 import { Source, Layer } from "react-map-gl/maplibre";
+import { useToolbarContext } from "./toolbar/toolbar.context";
+import { useMapContext } from "./map.context";
+
+const PRELOADED_AREA_MARKER_IDS = new Set([
+  "mrk-001",
+  "mrk-007",
+  "mrk-013",
+  "mrk-019",
+  "mrk-020",
+  "mrk-021",
+  "mrk-024",
+  "mrk-025",
+  "mrk-026",
+]);
 
 export const Shapes: React.FC<PropsWithChildren<{}>> = () => {
   const { markers } = useAppContext();
+  const { setSelectedMarker } = useToolbarContext();
+  const { map } = useMapContext();
+  const areaMarkers = markers.filter(
+    marker =>
+      marker.type === "area" && !PRELOADED_AREA_MARKER_IDS.has(marker.id),
+  );
   const routeMarkers = markers.filter(
     marker => marker.type === "route" && (marker.paths?.length ?? 0) >= 2,
   );
 
+  useEffect(() => {
+    if (!map) return;
+    const m = map.getMap();
+
+    const handleClick = (e: maplibregl.MapMouseEvent) => {
+      const layerIds = areaMarkers
+        .map(marker => `shape-fill-${marker.id}`)
+        .filter(id => m.getLayer(id));
+
+      if (layerIds.length === 0) return;
+
+      const features = m.queryRenderedFeatures(e.point, { layers: layerIds });
+      if (features.length > 0) {
+        const markerId = features[0].properties?.markerId;
+        const marker = areaMarkers.find(item => item.id === markerId);
+        if (marker) setSelectedMarker(marker);
+      }
+    };
+
+    m.on("click", handleClick);
+    return () => {
+      m.off("click", handleClick);
+    };
+  }, [areaMarkers, map, setSelectedMarker]);
+
   return (
     <>
+      {areaMarkers.map(marker => (
+        <Source
+          key={marker.id}
+          id={`shape-${marker.id}`}
+          type="geojson"
+          data={{
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              coordinates: [
+                marker.paths?.map(p => [p[1], p[0]]) || [],
+              ],
+            },
+            properties: { markerId: marker.id },
+          }}
+        >
+          <Layer
+            id={`shape-glow-${marker.id}`}
+            type="line"
+            layout={{
+              "line-cap": "round",
+              "line-join": "round",
+            }}
+            paint={{
+              "line-color": marker.color || "#3b82f6",
+              "line-width": 6,
+              "line-opacity": 0.08,
+              "line-blur": 1.2,
+            }}
+          />
+          <Layer
+            id={`shape-fill-${marker.id}`}
+            type="fill"
+            paint={{
+              "fill-color": marker.color || "#3b82f6",
+              "fill-opacity": Math.min(
+                Math.max(marker.fillOpacity || 0, 0.12),
+                0.18,
+              ),
+            }}
+          />
+          <Layer
+            id={`shape-line-${marker.id}`}
+            type="line"
+            layout={{
+              "line-cap": "round",
+              "line-join": "round",
+            }}
+            paint={{
+              "line-color": marker.color || "#3b82f6",
+              "line-width": 2.4,
+              "line-opacity": 0.78,
+            }}
+          />
+        </Source>
+      ))}
       {routeMarkers.map(marker => (
         <Source
           key={marker.id}
