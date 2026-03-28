@@ -237,7 +237,7 @@ type MockStore = {
   conversations: ConversationRecord[];
 };
 
-const STORAGE_KEY = "humanlogs2026:mock-store:v5";
+const STORAGE_KEY = "humanlogs2026:mock-store:v6";
 
 let storeCache: MockStore | null = null;
 
@@ -1035,7 +1035,7 @@ const markerSeeds = [
     lat: 16.7582,
     lng: 107.1184,
     color: "#0ea5e9",
-    fillOpacity: 0.28,
+    fillOpacity: 0.3,
     isClosedPath: true,
     paths: [
       [16.756, 107.114],
@@ -1111,7 +1111,7 @@ const markerSeeds = [
     lat: 16.5007,
     lng: 107.6353,
     color: "#2563eb",
-    fillOpacity: 0.22,
+    fillOpacity: 0.24,
     isClosedPath: true,
     paths: [
       [16.4959, 107.6282],
@@ -1282,7 +1282,7 @@ const markerSeeds = [
     lat: 16.6021,
     lng: 107.5012,
     color: "#f59e0b",
-    fillOpacity: 0.16,
+    fillOpacity: 0.24,
     isClosedPath: true,
     paths: [
       [16.6648, 107.3281],
@@ -1300,7 +1300,7 @@ const markerSeeds = [
     lat: 16.0631,
     lng: 108.0931,
     color: "#ef4444",
-    fillOpacity: 0.14,
+    fillOpacity: 0.22,
     isClosedPath: true,
     paths: [
       [16.1512, 107.9965],
@@ -1318,7 +1318,7 @@ const markerSeeds = [
     lat: 15.8898,
     lng: 108.3132,
     color: "#fb7185",
-    fillOpacity: 0.12,
+    fillOpacity: 0.18,
     isClosedPath: true,
     paths: [
       [15.9251, 108.2748],
@@ -1365,6 +1365,60 @@ const markerSeeds = [
       [15.8934, 108.3158],
     ] as Array<[number, number]>,
     note: "Hành lang tiếp vận hỗn hợp giữa xe tải, xe máy và xuồng nhẹ.",
+  },
+  {
+    id: "mrk-024",
+    name: "Vùng ngập ven phá Quảng Điền",
+    type: "area" as MarkerType,
+    markType: "flood_area" as MarkerMarkType,
+    lat: 16.6045,
+    lng: 107.4147,
+    color: "#f97316",
+    fillOpacity: 0.2,
+    isClosedPath: true,
+    paths: [
+      [16.6521, 107.3498],
+      [16.6282, 107.4589],
+      [16.5711, 107.4707],
+      [16.5558, 107.3706],
+    ] as Array<[number, number]>,
+    note: "Dải thấp trũng ven phá, nước dâng nhanh khi gió đổi hướng.",
+  },
+  {
+    id: "mrk-025",
+    name: "Vùng ngập hạ lưu Thu Bồn",
+    type: "area" as MarkerType,
+    markType: "flood_area" as MarkerMarkType,
+    lat: 15.8843,
+    lng: 108.2241,
+    color: "#06b6d4",
+    fillOpacity: 0.2,
+    isClosedPath: true,
+    paths: [
+      [15.9478, 108.1442],
+      [15.9441, 108.2742],
+      [15.8433, 108.3074],
+      [15.8211, 108.1814],
+    ] as Array<[number, number]>,
+    note: "Ô cảnh báo dọc hạ lưu, dễ cô lập các xóm ven sông Thu Bồn.",
+  },
+  {
+    id: "mrk-026",
+    name: "Vùng triều dâng cửa Đại",
+    type: "area" as MarkerType,
+    markType: "dangerous" as MarkerMarkType,
+    lat: 15.9042,
+    lng: 108.3564,
+    color: "#ef4444",
+    fillOpacity: 0.16,
+    isClosedPath: true,
+    paths: [
+      [15.9538, 108.3102],
+      [15.9496, 108.3978],
+      [15.8732, 108.4207],
+      [15.8576, 108.3341],
+    ] as Array<[number, number]>,
+    note: "Khu vực mép nước biến động mạnh, không neo đậu hoặc gom người sát bờ.",
   },
 ] as const;
 

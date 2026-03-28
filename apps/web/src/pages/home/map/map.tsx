@@ -21,18 +21,6 @@ export const Map: React.FC<PropsWithChildren<{}>> = () => {
   const { locations, markers } = useAppContext();
   const { tileProvider, setMap } = useMapContext();
   const [zoom, setZoom] = useState(13);
-  const criticalCount = locations.filter(
-    location => !location.isResolved && location.emergencyLevel === "critical",
-  ).length;
-  const areaCount = markers.filter(marker => marker.type === "area").length;
-  const routeCount = markers.filter(marker => marker.type === "route").length;
-  const hazardCount = markers.filter(
-    marker =>
-      marker.markType === "blocked_road" ||
-      marker.markType === "electric_hazard" ||
-      marker.markType === "strong_current" ||
-      marker.markType === "dangerous",
-  ).length;
 
   const mapRef = useCallback(
     (ref: MapRef | null) => {
@@ -72,83 +60,10 @@ export const Map: React.FC<PropsWithChildren<{}>> = () => {
               )}
           </ReactMap>
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.16),transparent_26%),radial-gradient(circle_at_78%_24%,rgba(245,158,11,0.1),transparent_18%),linear-gradient(180deg,rgba(255,255,255,0.02),rgba(15,58,95,0.04))]" />
-          <div className="pointer-events-none absolute left-5 top-5 z-20 max-w-xs">
-            <div className="rounded-3xl border border-white/65 bg-white/82 p-4 shadow-[0_24px_44px_rgba(15,58,95,0.18)] backdrop-blur-xl">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-700">
-                Bản đồ điều phối
-              </div>
-              <div className="mt-1 text-base font-bold text-slate-900">
-                Trọng tâm vùng ngập và hành lang cứu trợ
-              </div>
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <MapStatCard
-                  tone="rose"
-                  label="Điểm nguy kịch"
-                  value={criticalCount}
-                />
-                <MapStatCard
-                  tone="amber"
-                  label="Vùng khoanh"
-                  value={areaCount}
-                />
-                <MapStatCard
-                  tone="cyan"
-                  label="Tuyến cứu trợ"
-                  value={routeCount}
-                />
-                <MapStatCard
-                  tone="slate"
-                  label="Điểm rủi ro"
-                  value={hazardCount}
-                />
-              </div>
-              <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-700">
-                <LegendPill color="bg-rose-500" label="Ngập sâu / sơ tán" />
-                <LegendPill color="bg-amber-500" label="Hành lang trung chuyển" />
-                <LegendPill color="bg-cyan-500" label="Luồng tiếp cận an toàn" />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <MapToolbar />
       <ShapeDetail />
     </>
-  );
-};
-
-const MapStatCard: React.FC<{
-  label: string;
-  value: number;
-  tone: "rose" | "amber" | "cyan" | "slate";
-}> = ({ label, value, tone }) => {
-  const toneClasses = {
-    rose: "border-rose-200 bg-rose-50/80 text-rose-700",
-    amber: "border-amber-200 bg-amber-50/80 text-amber-700",
-    cyan: "border-cyan-200 bg-cyan-50/80 text-cyan-700",
-    slate: "border-slate-200 bg-slate-50/80 text-slate-700",
-  };
-
-  return (
-    <div
-      className={`rounded-2xl border px-3 py-2 ${toneClasses[tone]}`}
-    >
-      <div className="text-[10px] font-semibold uppercase tracking-[0.18em]">
-        {label}
-      </div>
-      <div className="mt-1 text-xl font-extrabold">{value}</div>
-    </div>
-  );
-};
-
-const LegendPill: React.FC<{ color: string; label: string }> = ({
-  color,
-  label,
-}) => {
-  return (
-    <div className="inline-flex items-center gap-1.5 rounded-full border border-white/70 bg-white/85 px-2.5 py-1 shadow-sm">
-      <div className={`size-2.5 rounded-full ${color}`} />
-      <span>{label}</span>
-    </div>
   );
 };
