@@ -1,0 +1,21 @@
+{
+  "cSpell.words": [
+    "bunx",
+    "ELEVENLABS",
+    "GOONG",
+    "goongjs",
+    "goongmaps",
+    "ilike",
+    "latlng",
+    "lockdown",
+    "maplibre",
+    "maplibregl",
+    "markercluster",
+    "Nuqs",
+    "sosnow",
+    "VITE"
+  ],
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "node_modules/@base-ui/react/*"
+  ]
+}

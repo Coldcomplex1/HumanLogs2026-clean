@@ -1,0 +1,76 @@
+{
+  "type": "post_call_transcription",
+  "event_timestamp": 1774684800,
+  "data": {
+    "conversation_id": "conv_humanlogs_demo_001",
+    "agent_id": "agent_humanlogs2026_demo",
+    "agent_name": "HumanLogs2026",
+    "status": "done",
+    "metadata": {
+      "start_time_unix_secs": 1774684720,
+      "call_duration_secs": 196,
+      "main_language": "vi",
+      "text_only": false,
+      "phone_call": {
+        "from_number": "+84901234567"
+      }
+    },
+    "conversation_initiation_client_data": {
+      "dynamic_variables": {
+        "phone_number": "+84901234567"
+      }
+    },
+    "analysis": {
+      "transcript_summary": "Hộ 5 người tại xã Đại Hồng đang mắc kẹt tầng lửng, có 1 người già cần thuốc tim và cần xuồng tiếp cận trong sáng nay.",
+      "data_collection_results": {
+        "name": { "value": "Nguyễn Thị Hồng" },
+        "full_address": { "value": "Thôn Phước Lộc, xã Đại Hồng, huyện Đại Lộc, Quảng Nam" },
+        "gender": { "value": "female" },
+        "emergency_level": { "value": "Cao" },
+        "needs_medical": { "value": true },
+        "household_size": { "value": 5 },
+        "need_types": { "value": ["thuoc", "nuoc", "so_tan"] },
+        "medicine_list": { "value": ["Thuốc tim", "Thuốc huyết áp"] },
+        "water_depth": { "value": "Ngập khoảng 1.2m ngoài sân" },
+        "boat_accessible": { "value": true },
+        "has_children": { "value": true },
+        "has_elderly": { "value": true },
+        "has_disability": { "value": false },
+        "is_pregnant": { "value": false },
+        "additional_notes": { "value": "Đường bê tông vào thôn đã bị nước chia cắt, cần liên hệ trước khi tiếp cận." }
+      }
+    },
+    "transcript": [
+      {
+        "role": "agent",
+        "message": "Chào anh chị, đây là HumanLogs2026. Em đang tiếp nhận nhu cầu cứu trợ do lũ lụt, anh chị cho em xin tên và địa chỉ hiện tại nhé.",
+        "time_in_call_secs": 2
+      },
+      {
+        "role": "user",
+        "message": "Tôi là Nguyễn Thị Hồng, nhà ở thôn Phước Lộc, xã Đại Hồng, Đại Lộc, Quảng Nam.",
+        "time_in_call_secs": 18
+      },
+      {
+        "role": "agent",
+        "message": "Hiện tại gia đình có bao nhiêu người và có ai cần hỗ trợ y tế không ạ?",
+        "time_in_call_secs": 27
+      },
+      {
+        "role": "user",
+        "message": "Nhà có 5 người, có mẹ tôi lớn tuổi cần thuốc tim, nước ngập ngoài sân hơn một mét rồi.",
+        "time_in_call_secs": 46
+      },
+      {
+        "role": "agent",
+        "message": "Gia đình mình cần những hỗ trợ gì ưu tiên nhất và đường vào có xuồng tiếp cận được không ạ?",
+        "time_in_call_secs": 60
+      },
+      {
+        "role": "user",
+        "message": "Cần thuốc, nước sạch, nếu được thì sơ tán bà cụ trước. Đường bộ không vào được, chỉ có xuồng mới tới.",
+        "time_in_call_secs": 78
+      }
+    ]
+  }
+}

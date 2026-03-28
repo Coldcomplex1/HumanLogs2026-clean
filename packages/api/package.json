@@ -1,0 +1,50 @@
+{
+  "name": "@repo/api",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./root": "./src/root.ts",
+    "./trpc": "./src/trpc.ts",
+    "./context": "./src/context.ts",
+    "./env": "./src/env.ts",
+    "./services": "./src/services.ts",
+    "./share": "./src/share.ts",
+    "./ws-server": "./src/ws/ws-server.ts",
+    "./ws-share": "./src/ws/ws.share.ts"
+  },
+  "dependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.37.0",
+    "@repo/db": "*",
+    "@repo/typescript-config": "*",
+    "@socket.io/bun-engine": "^0.1.0",
+    "@socket.io/redis-adapter": "^8.3.0",
+    "@trpc/server": "11.10.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "axios": "^1.13.1",
+    "bull": "^4.16.5",
+    "consola": "^3.4.2",
+    "cuid": "^3.0.0",
+    "dayjs": "^1.11.13",
+    "drizzle-orm": "0.45.1",
+    "google-auth-library": "^9.15.0",
+    "ioredis": "^5.8.2",
+    "jose": "^5.10.0",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.0",
+    "nanoid": "^5.1.6",
+    "openai": "^6.32.0",
+    "pg": "^8.18.0",
+    "slugify": "^1.6.6",
+    "socket.io": "4.8.1",
+    "trpc-bun-adapter": "^1.3.0",
+    "zod": "4.1.13",
+    "zod-validation-error": "^4.0.2"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^1.12.4",
+    "text-case": "^1.2.10",
+    "@types/bun": "^1.3.6",
+    "@types/node": "^25.2.3",
+    "typescript": "5.9.2"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "humanlogs2026",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:api": "cd apps/api && bun run dev",
+    "dev:web": "cd apps/web && bun run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "db:generate": "cd packages/db && dotenv -e ../../apps/api/.env -- bunx drizzle-kit generate",
+    "db:migrate": "cd packages/db && dotenv -e ../../apps/api/.env -- bunx drizzle-kit migrate",
+    "db:migrate-prod": "cd packages/db && npx dotenv -e ../../apps/api/.env.prod -- bunx drizzle-kit migrate",
+    "db:generate-prod": "cd packages/db && dotenv -e ../../apps/api/.env.prod -- bunx drizzle-kit generate",
+    "db:migrate:dev": "bun run db:generate && bun run db:migrate",
+    "db:migrate:prod": "bun run db:generate-prod && bun run db:migrate-prod",
+    "db:studio": "cd packages/db && dotenv -e ../../apps/api/.env -- bunx drizzle-kit studio",
+    "db:studio:prod": "cd packages/db && dotenv -e ../../apps/api/.env.prod -- bunx drizzle-kit studio",
+    "db:seed": "bun run db:seed:dev",
+    "db:seed:dev": "cd packages/db && dotenv -e ../../apps/api/.env -- bun run ./seed/seed.ts",
+    "db:seed:prod": "cd packages/db && dotenv -e ../../apps/api/.env.prod -- bun run ./seed/seed.ts"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0",
+    "prettier": "^3.7.4",
+    "text-case": "^1.2.10",
+    "turbo": "^2.7.5",
+    "typescript": "5.9.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "bun@1.3.6",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "react-leaflet": "^5.0.0"
+  }
+}
