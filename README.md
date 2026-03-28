@@ -204,9 +204,3 @@ Nếu chưa có khóa Twilio, toàn bộ dashboard và browser test vẫn chạy
 - Summary case và mô tả kế hoạch dùng OpenAI khi có key, nếu thiếu sẽ fallback heuristic tiếng Việt
 - Upload ảnh ưu tiên Cloudinary, nếu thiếu env thì form vẫn dùng URL thủ công / trạng thái graceful
 - Không có auth phức tạp để giữ demo flow nhanh
-
-## Known limitations
-
-- Chưa có thuật toán routing khoa học; route confidence hiện là heuristic hỗ trợ điều phối
-- Route report hiện hiển thị trong detail sheets, chưa tách thành page riêng
-- Môi trường hiện tại cần có Bun/Docker/Postgres thật để verify end-to-end
